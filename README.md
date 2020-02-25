@@ -506,4 +506,72 @@ $(function() {
 </body>
 </html>
 ```
-	
+## 콘텐츠 선택자
+```
+<script src="jquery.js"></script>
+<script>
+	$(function() {
+		$("#inner_1 p:contains(내용1)").css({ // 선택한 p 중 내용1을 포함하는 요소만 선택
+			"background-color" : "#ff0"
+		});
+
+		$("#inner_1 p:has(strong)").css({  // 선택한 p 중 strong을 포함하는 요소만 선택
+			"background-color" : "#0ff"
+		});
+
+		$("#outer_wrap").contents().css({ //outer_wrap의 하위 요소의 텍스트,테그노드 선택
+			"border" : "1px dashed #00f"
+		});
+
+		$("#inner_2 p").not(":first").css({ //inner_2의 하위 요소에서 첫번째 요소만 제외하고 선택
+			"background-color" : "#0f0"
+		});
+
+		$("#inner_2 p").eq(2).end().css({
+			"color" : "#f00"
+		});
+		
+		$("inner_1 p").find("txt1").css({
+			"background-color":"#ff0"
+		});
+		
+		$("inner_1 p").filter("txt2").css({
+			"background-color":"#0ff"
+		});
+		
+		$("inner_1").filter(function({
+			console.log(idx);
+			return idx % 2==0;
+		})
+		.css({
+			"background-color":"#0f0"
+		});
+	});
+</script>
+</head>
+<body>
+	<div id="outer_wrap">
+		<h1>콘텐츠 탐색 선택자</h1>
+		<section id="inner_1">
+			<h1>contains(), contents(), has()</h1>
+			<p>
+				<span>내용1</span>
+			</p>
+			<p>
+				<strong>내용2</strong>
+			</p>
+			<p>
+				<span>내용3</span>
+			</p>
+		</section>
+		<section id="inner_2">
+			<h1>not(), end()</h1>
+			<p>내용4</p>
+			<p>내용5</p>
+			<p>내용6</p>
+		</section>
+	</div>
+
+</body>
+</html>
+```
