@@ -319,3 +319,191 @@ $(function(){
 </body>
 </html>
 ```
+# 제이쿼리 배열 관련 메소드
+
+## $.map() / $.grep() 메소드
+
+```
+$.map(Array,function(매개변수1, 매개변수2) {
+   return 데이터;
+});
+
+
+$.grep(Array,function(매개변수1, 매개변수2) {
+   return [true | false];
+});
+<script src="jquery.js"></script>
+<script>
+$(function() {
+	var arr1 = [{
+		area:"서울",
+		name:"무대리"
+	}, {
+		area:"부산",
+		name:"홍과장"
+	},{
+		area:"서울",
+		name:"빅마마"
+	}]
+	
+	var arr2 = $.map(arr1,function(a,b){
+		if(a.area == "서울") {
+			return a;
+		} 		
+	});
+	
+	console.log(arr2);
+	console.log("========== first End =========");
+	
+	var arr3 = $.grep(arr1,function(a,b){
+		if(a.area == "서울") {
+			return true;
+		} else {
+			return false;
+		}
+	});
+	
+	console.log(arr3);
+	console.log("========== second End =========");
+});
+
+</script>
+```
+
+## $.inArray() / $.isArray() / $.merge() 메소드
+```
+<script src="jquery.js"></script>
+<script>
+$(function() {
+	var arr1 = ["서울","대전","부산","전주"];
+	var arr2 = ["한국","미국","일본","중국"];
+	var obj = {
+			name:"정부장",
+			area:"서울"
+	}
+	
+	var idxNum = $.inArray("부산",arr1);     //배열에 저장된 데이터를 인덱스 오름차순으로 찾아 먼저 찾은
+	console.log(idxNum);                     //데이터의 인덱스 값을 반환함.
+	
+	var okArray1 = $.isArray(arr1);          // 지정한 객체가 배열이면 true
+	var okArray2 = $.isArray(obj);           // 객체가 아니면 false
+	console.log(okArray1);
+	console.log(okArray2);
+	
+	$.merge(arr2,arr1);                     // 두 배열 객체를 하나의 배열 객체로 묶는다.
+	console.log(arr2);
+});
+
+</script>
+```
+
+## 속성 탐색자
+```
+
+<script src="jquery.js"></script>
+<script>
+	$(function() {
+		$("#wrap a[target]")          // target 속성을 포함하는 요소 선택
+		.css({"color":"#f00"});      
+		
+		$("#wrap a[href^=https]")     // href 속성값이 https로 시작하는 요소 선택
+		.css({"color":"#0f0"});       
+		
+		$("#wrap a[href$=net]")       // href 속성값이 net으로 끝나는 요소 선택
+		.css({"color":"#00f"});
+		
+		$("#wrap a[href*=google]")    // href 속성값에 google이 포함된 요소 선택
+		.css({"color":"#000"});
+		
+		$("#member_f :text")          // input 요소중 type이 "text"인 요소 선택
+		.css({"background-color":"#ff0"});
+		
+		$("#member_f :password")      // input 요소중 type이 "password"인 요소 선택
+		.css({"background-color":"#0ff"});
+	});
+</script>
+</head>
+<body>
+	<div id="wrap">
+		<p>
+			<a href="http://easyspub.co.kr" target="_blank">EasysPub</a>
+		</p>
+		
+		<p>
+			<a href="https://naver.com">Naver</a>
+		</p>
+		
+		<p>
+			<a href="https://google.co.kr">Google</a>
+		</p>
+		
+		<p>
+			<a href="https://daum.net">Daum</a>
+		</p>
+		
+	</div>
+	<form action="#" method="get" id="member_f">
+		<p>
+			<label for="user_id">아이디</label><input type="text" name="user_id"
+				id="user_id">
+		</p>
+		<p>
+			<label for="user_pw">비밀번호</label><input type="password"
+				name="user_pw" id="user_pw">
+		</p>
+	</form>
+</body>
+</html>
+```
+
+## 속성에 따른 탐색 선택자
+```
+<script src="jquery.js"></script>
+<script>
+	$(function() {
+		$("#wrap p:hidden")      //("요소선택: visible | hidden") 숨겨진 상태 or 보이는 상태의 요소만 선택
+		.css({
+			"display" : "block",
+			"background":"#ff0"
+		});
+		
+		var z1=$("#zone1 :selected").val();  //#zone1의 하위 요소 중 에서 selected된 요소만 선택
+		console.log(z1);
+		
+		var z2=$("#zone2 :checked").val();   //#zone2의 하위 요소 중 에서 checked된 요소만 선택
+		console.log(z2);
+
+		var z3=$("#zone3 :checked").val();   // (":checked")는 radio, checkbox 요소만 선택한다.
+		console.log(z3);
+		
+	});
+</script>
+</head>
+<body>
+	<div id="wrap">
+		<p>내용1</p>
+		<p style="display: none">내용2</p>
+		<p>내용3</p>
+	</div>
+	<form action="#">
+		<p id="zone1">
+			<select name="course" id="course">
+				<option value="opt1">옵션1</option>
+				<option value="opt2" selected>옵션2</option>
+				<option value="opt3">옵션3</option>
+			</select>
+		</p>
+		<p id="zone2">
+			<input type="checkbox" name="hobby1" value="독서">독서 
+			<input type="checkbox" name="hobby2" value="자전거">자전거 
+			<input type="checkbox" name="hobby3" value="등산" checked>등산
+		</p>
+		<p id="zone3">
+			<input type="radio" name="gender" value="male">남성 
+			<input type="radio" name="gender" value="female" checked>여성
+		</p>
+	</form>
+</body>
+</html>
+```
+	
