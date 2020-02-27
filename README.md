@@ -575,3 +575,110 @@ $(function() {
 </body>
 </html>
 ```
+
+# JQuery이벤트
+
+## 단독 이벤트 등록 메서드
+```
+단독 이벤트 등록 메소드
+
+$("이벤트 대상 선택").이벤트 등록 메서드(function(){
+   자바스크립트 코드;
+});
+
+<script type="text/javascript">
+	$(function() {
+		$('#btn').click(function() {
+			alert("click 이벤트 발생");
+		});
+	});
+</script>
+
+```
+
+## 그룹 이벤트 등록 매소드
+```
+<script src="jquery.js">
+	
+</script>
+<script type="text/javascript">
+	$(function() {
+		$(".btn1").click(function() {
+			$(".btn1").parent().next()
+			.css({
+				"color":"#f00"
+			});
+		});
+		
+		$(".btn2").on({
+			"mouseover focus":function(){
+				$(".btn2").parent().next()
+				.css({
+					"color":"#0f0"
+				});
+			},
+			"mouseout blur":function(){
+				$(".btn2").parent().next()
+				.css({
+					"color":"#000"
+				});
+			}
+		});
+	});
+</script>
+</head>
+<body>
+	<p>
+		<button class="btn1">버튼1</button>
+	</p>
+	<p>내용1</p>
+	<p>
+		<button class="btn2">버튼2</button>
+	</p>
+	<p>내용2</p>
+</body>
+```
+
+## 이벤트 적용시 이벤트 차단하기
+```
+<script src="jquery.js">
+	
+</script>
+<script type="text/javascript">
+	$(function() {
+
+		$(".btn1").on("click",function(e){
+			e.preventDefault();       // 링크 페이지로 이동 차단
+			$(".txt1").css({
+				"background-color":"#ff0"
+			});
+		});
+		$(".btn2").on("click",function(e){        
+			$(".txt2").css({
+				"background-color":"#0ff"
+			});
+		});
+		$(".btn3").on("dblclick",function(){        // 더블클릭시 적용
+			$(".txt3").css({
+				"background-color":"#0f0"
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<p>
+		<a href="http://www.easyspub.co.kr" class="btn1">버튼1</a>
+	</p>
+	<p class="txt1">내용1</p>
+	<p>
+		<a href="http://www.easyspub.co.kr" class="btn2">버튼2</a>
+	</p>
+	<p class="txt2">내용2</p>
+	<p>
+		<button class="btn3">버튼3</button>
+	</p>
+	<p class="txt3">내용3</p>
+</body>
+</html>
+```
