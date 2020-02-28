@@ -682,3 +682,144 @@ $("이벤트 대상 선택").이벤트 등록 메서드(function(){
 </body>
 </html>
 ```
+# 애니메이션
+```
+<script src="jquery.js">
+	
+</script>
+<script type="text/javascript">
+	$(function() {
+		$(".btn2").hide();
+
+		$(".btn1").on("click", function() {
+			$(".box").slideUp(1000, "linear", function() {
+				$(".btn1").hide();
+				$(".btn2").show();
+			});
+		});
+
+		$(".btn2").on("click", function() {
+			$(".box").fadeIn(1000, "swing", function() {
+				$(".btn2").hide();
+				$(".btn1").show();
+			});
+		});
+
+		$(".btn3").on("click", function() {
+			$(".box").slideToggle(1000, "linear");
+		});
+
+		$(".btn4").on("click", function() {
+			$(".box").fadeTo("fast", 0.3);
+		});
+
+		$(".btn5").on("click", function() {
+			$(".box").fadeTo("fast", 1);
+		});
+	});
+</script>
+<style type="text/css">
+.content{
+  width: 400px;
+  background-color: #eee;
+}
+</style>
+</head>
+<body>
+
+	<p>
+		<button class="btn1">slideUp</button>
+		<button class="btn2">fadeIn</button>
+	</p>
+	<p>
+		<button class="btn3">toggleSlide</button>
+	</p>
+	<p>
+		<button class="btn4">fadeTo(0.3)</button>
+		<button class="btn5">fadeTo(1)</button>
+	</p>
+	<div class="box">
+		<div class="content">lorem</div>
+	</div>
+</body>
+```
+```
+<script type="text/javascript">
+	$(function() {
+		$(".btn1").on("click", function() {
+			$(".txt1").animate({
+				marginLeft: "500px",
+			    fontSize: "30px"
+			},
+			2000,"linear",function() {
+				alert("모션완료!");
+			});
+		});
+		
+		$(".btn2").on("click", function() {
+			$(".txt2").animate({
+				marginLeft: "+=50px"
+			},1000);			
+		});
+		
+	});
+</script>
+<style type="text/css">
+.txt1 {
+	background-color: aqua;
+}
+
+.txt2 {
+	background-color: pink;
+}
+</style>
+</head>
+<body>
+
+	<p>
+		<button class="btn1">버튼1</button>
+	</p>
+	<p>
+		<span class="txt1">"500px" 이동</span>
+	</p>
+	<p>
+		<button class="btn2">버튼2</button>
+		<span class="txt2">"50px"씩 이동</span>
+	</p>
+	
+</body>
+
+</html>
+```
+## stop 메소드
+```
+$(function() {
+
+		$(".txt1").animate({
+			marginLeft : "300px"
+		}, 1000);
+
+		$(".txt2").delay(3000).animate({
+			marginLeft : "300px"
+		}, 1000);
+
+		$(".btn1").on("click", moveElement);
+
+		function moveElement() {
+			$(".txt3").animate({
+				marginLeft : "+=50px"
+			}, 800);
+
+			$(".txt4").animate({
+				marginLeft : "+=50px"
+			}, 800);
+			$(".txt4").stop();
+
+			$(".txt5").animate({
+				marginLeft : "+=50px"
+			}, 800);
+			$(".txt5").stop(true,ture);
+		}
+	});
+	
+```	
